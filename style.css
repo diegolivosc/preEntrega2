@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #f4f4f4;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover { background: #0056b3; }
+
+#carrito {
+    margin-top: 20px;
+    padding: 10px;
+    background: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
