@@ -1,17 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Compra</title>
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
 </head>
 <body>
-    
-<button onclick="simularCompra()">Iniciar Compra</button>
-<div id="carrito"></div>
-    
-
+    <nav class="navbar">
+        <h1>Tienda Virtual</h1>
+        <ul class="nav-links">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Productos</a></li>
+            <li><a href="#">Contacto</a></li>
+        </ul>
+    </nav>
+    <main class="content">
+        <h1>Simulador de Compra</h1>
+        <button onclick="simularCompra()">Agregar Producto</button>
+        <button onclick="buscarProducto()">Buscar Producto</button>
+        <button onclick="calcularTotal()">Calcular Total</button>
+        <button onclick="eliminarProducto()">Eliminar Producto</button>
+        <button onclick="vaciarCarrito()">Vaciar Carrito</button>
+        <p id="carrito">Carrito: Vacío</p>
+    </main>
     <script src="main.js"></script>
+    <footer class="footer">
+        <p>&copy; 2025 Tienda Virtual - Todos los derechos reservados</p>
+    </footer>
 </body>
 </html>
+
