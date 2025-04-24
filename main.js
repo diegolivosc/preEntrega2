@@ -1,48 +1,66 @@
-const productos = [
-    { nombre: "Computador", precio: 1500 },
-    { nombre: "Mouse", precio: 50 },
-    { nombre: "Teclado", precio: 100 },
-    { nombre: "Monitor", precio: 300 }
-];
-
+let productos = [];
 let carrito = [];
 
-function simularCompra() {
-    let producto = prompt(`¿Qué producto agregar? (Escribe 'fin' para salir)\n${productos.map(({ nombre }) => nombre).join(", ")}`);
-    while (producto !== 'fin') {
-        let item = productos.find(({ nombre }) => nombre.toLowerCase() === producto.toLowerCase());
-        item ? carrito.push(item) : alert("Producto no encontrado.");
-        item && alert(`Producto agregado: ${item.nombre}`);
-        producto = prompt(`¿Qué producto agregar? (Escribe 'fin' para salir)\n${productos.map(({ nombre }) => nombre).join(", ")}`);
-    }
-    mostrarCarrito();
+async function cargarProductos() {
+  try {
+    const res = await fetch('productos.json');
+    productos = await res.json();
+    mostrarProductos();
+  } catch (error) {
+    console.error("Error cargando productos:", error);
+  }
+}
+
+function mostrarProductos() {
+  const contenedor = document.getElementById("productos");
+  contenedor.innerHTML = "";
+  productos.forEach(producto => {
+    const div = document.createElement("div");
+    div.className = "producto";
+    div.innerHTML = `
+      <h3>${producto.nombre}</h3>
+      <p>Precio: $${producto.precio}</p>
+      <button onclick="agregarAlCarrito('${producto.nombre}')">Agregar</button>
+    `;
+    contenedor.appendChild(div);
+  });
+}
+
+function agregarAlCarrito(nombreProducto) {
+  const item = productos.find(p => p.nombre === nombreProducto);
+  carrito.push(item);
+  Swal.fire({
+    title: '¡Agregado!',
+    text: `${item.nombre} fue añadido al carrito.`,
+    icon: 'success',
+    timer: 1000,
+    showConfirmButton: false
+  });
+  actualizarCarrito();
+}
+
+function actualizarCarrito() {
+  const contenedor = document.getElementById("carrito");
+  if (carrito.length === 0) {
+    contenedor.innerText = "Carrito vacío";
+    return;
+  }
+  contenedor.innerHTML = carrito.map(p => `${p.nombre} ($${p.precio})`).join("<br>");
 }
 
 function mostrarCarrito() {
-    const contenido = carrito.length ? carrito.map(({ nombre, precio }) => `${nombre} ($${precio})`).join(", ") : "Carrito vacío";
-    alert(contenido);
-    document.getElementById("carrito").innerText = `Carrito: ${contenido}`;
-}
-
-function buscarProducto() {
-    let criterio = prompt("Buscar producto:");
-    let resultado = productos.filter(({ nombre }) => nombre.toLowerCase().includes(criterio.toLowerCase()));
-    alert(resultado.length ? `Productos encontrados: ${resultado.map(({ nombre }) => nombre).join(", ")}` : "No se encontró el producto.");
+  actualizarCarrito();
 }
 
 function calcularTotal() {
-    const total = carrito.reduce((acc, { precio }) => acc + precio, 0);
-    alert(`El total de tu compra es: $${total}`);
-}
-
-function eliminarProducto() {
-    let producto = prompt("¿Qué producto deseas eliminar del carrito?");
-    const index = carrito.findIndex(({ nombre }) => nombre.toLowerCase() === producto.toLowerCase());
-    index !== -1 ? (carrito.splice(index, 1), alert(`Producto eliminado: ${producto}`)) : alert("Producto no encontrado en el carrito.");
-    mostrarCarrito();
+  const total = carrito.reduce((acc, { precio }) => acc + precio, 0);
+  Swal.fire(`El total de tu compra es: $${total}`);
 }
 
 function vaciarCarrito() {
-    carrito.length ? (carrito = [], alert("Carrito vaciado.")) : alert("El carrito ya está vacío.");
-    mostrarCarrito();
+  carrito = [];
+  actualizarCarrito();
+  Swal.fire("Carrito vaciado.");
 }
+
+cargarProductos();

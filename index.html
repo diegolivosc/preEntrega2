@@ -1,33 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Compra</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Compras</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
-    <nav class="navbar">
-        <h1>Tienda Virtual</h1>
-        <ul class="nav-links">
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Productos</a></li>
-            <li><a href="#">Contacto</a></li>
-        </ul>
-    </nav>
-    <main class="content">
-        <h1>Simulador de Compra</h1>
-        <button onclick="simularCompra()">Agregar Producto</button>
-        <button onclick="buscarProducto()">Buscar Producto</button>
-        <button onclick="calcularTotal()">Calcular Total</button>
-        <button onclick="eliminarProducto()">Eliminar Producto</button>
-        <button onclick="vaciarCarrito()">Vaciar Carrito</button>
-        <p id="carrito">Carrito: Vacío</p>
-    </main>
-    <script src="main.js"></script>
-    <footer class="footer">
-        <p>&copy; 2025 Tienda Virtual - Todos los derechos reservados</p>
-    </footer>
+  <h1>Simulador de Tienda</h1>
+
+  <div id="productos">
+    <p>Cargando productos...</p>
+  </div>
+
+  <div>
+    <button onclick="mostrarCarrito()">Mostrar Carrito</button>
+    <button onclick="calcularTotal()">Calcular Total</button>
+    <button onclick="vaciarCarrito()">Vaciar Carrito</button>
+  </div>
+
+  <div id="carrito">Carrito vacío</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="main.js"></script>
 </body>
 </html>
 
